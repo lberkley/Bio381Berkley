@@ -7,4 +7,4 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Link to [this page](newpage.rmd)
+Link to [this page](newpage.html)

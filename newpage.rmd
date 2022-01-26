@@ -3,4 +3,4 @@ title: "New page"
 output: html_document
 ---
 
-Link to [this page](index.rmd)
+Link to [this page](index.html)
