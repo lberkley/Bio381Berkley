@@ -2,7 +2,11 @@
 title: "Homework 3"
 author: "Lauren Berkley"
 date: "2/2/2022"
-output: html_document
+output:
+  html_document:
+    theme: journal
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}

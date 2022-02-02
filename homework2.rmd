@@ -1,6 +1,8 @@
 ---
 title: "Homework 2"
-output: html_document
+output:
+  html_document:
+    theme: journal
 ---
 
 Link to [Home](index.html)

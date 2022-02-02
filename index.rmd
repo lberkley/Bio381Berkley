@@ -1,6 +1,10 @@
 ---
 title: "Home Page"
-output: html_document
+output: 
+  html_document:
+    theme: journal
+    toc: true
+    toc_float: true
 ---
 
 ```{r setup, include=FALSE}
