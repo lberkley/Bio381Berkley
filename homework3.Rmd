@@ -1,5 +1,5 @@
 ---
-title: "homework3"
+title: "Homework 3"
 author: "Lauren Berkley"
 date: "2/2/2022"
 output: html_document
@@ -8,6 +8,8 @@ output: html_document
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+Link to [Home](index.html)
 
 1. This is the first question text:
 

@@ -1,6 +1,6 @@
 ---
-title: "New page"
+title: "Homework 2"
 output: html_document
 ---
 
-Link to [this page](index.html)
+Link to [Home](index.html)
