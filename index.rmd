@@ -1,5 +1,5 @@
 ---
-title: "Initial web page set up"
+title: "Home Page"
 output: html_document
 ---
 
@@ -7,4 +7,4 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Link to [this page](newpage.html)
+Link to [Homework 2](newpage.html)
