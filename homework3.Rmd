@@ -1,0 +1,18 @@
+---
+title: "homework3"
+author: "Lauren Berkley"
+date: "2/2/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+1. This is the first question text:
+
+```
+FIND: 
+REPLACE:
+```
+Brief explanation
