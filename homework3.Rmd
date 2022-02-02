@@ -33,7 +33,7 @@ Second,More,Text,1.555555,2.2220
 Third,x,3,124
 ```   
 
-`(\h+)` looks for horizontal white space, thus selecting the spaces between the words that I want to change. `,` replaces those spaces with a comma.
+`(\h+)` looks for horizontal white space, thus selecting the spaces between the words that I want to change. In Replace, `,` replaces those spaces with a comma.
 
 ### Question 2
 
@@ -57,11 +57,11 @@ Ellison Aaron (Harvard Forest)
 Record Sydne (Bryn Mawr)
 ```
 
-I selected the individual words, so that I could delete the commas after the first and second word, then add parentheses to the rest of the words.
+I captured the first two words and the last chunk of words because I wanted to keep those. I did not capture the commas because I wanted to delete those. In Replace, I added parentheses around my third capture, which was that last chunk of words.
 
 ### Question 3
 
-This is the text for question 3:
+This is the text for Question 3:
 ```
 0001 Georgia Horseshoe.mp3 0002 Billy In The Lowground.mp3 0003 Cherokee Shuffle.mp3 0004 Walking Cane.mp3
 ```
@@ -88,8 +88,8 @@ Continuing with the edited text from Question 3...
 
 Here's what I did in BB edit:
 ```
-FIND:(\d{4})(\s)(.*\w+)(\.mp3)
-REPLACE:\3_\1\4
+FIND:(\d{4})\s(.*\w+)(\.mp3)
+REPLACE:\2_\1\3
 ```
 
 Here's the result:
@@ -100,7 +100,7 @@ Cherokee Shuffle_0003.mp3
 Walking Cane_0004.mp3
 ```
 
-I separated the text into four captures: 1) the four-digit number, 2) the space after the four-digit number, 3) the song title, and 4) the ".mp3". I could easily move the four-digit number to after the song title, insert a "_" between the song title and four-digit number, and delete the unwanted space (by replacing it with nothing).
+I separated the text into three captures: 1) the four-digit number, 2) the song title, and 3) the ".mp3". Then, I could easily move the four-digit number to after the song title and insert an underscore between the song title and four-digit number. I deleted the unwanted space by not capturing it.
 
 ### Question 5
 
@@ -114,3 +114,56 @@ Lasius,neoniger,3.3,55
 
 Here's what I did in BB edit:
 ```
+FIND: (\w)\w+\,(\w+\,)\d*+\.\d,(\d*)
+REPLACE: \1_\2\3
+```
+
+This was the result:
+```
+C_pennsylvanicus,44
+C_herculeanus,3
+M_punctiventris,4
+L_neoniger,55
+```
+
+`(\w)\w+` captured the first letter of the genus and deleted the rest of the word. By not capturing the following comma, I deleted that as well. `(\w+\,)` selects the entire species name and the following comma which I want to keep. By not capturing `\d*+\.\d,` I deleted the first two set of numbers and the following comma that I didn't want to include. `(\d*)` captures the last number which I wanted to keep. In Replace, I added an underscore between the first and second capture. 
+
+### Question 6
+
+Beginning with the original data set from Question 5...
+
+Here's what I did in BB edit:
+```
+FIND: (\w)\w+\,(\w{4})\w+(\,)\d*+\.\d,(\d*)
+REPLACE: \1_\2\3\4
+```
+
+Here's what I got:
+```
+C_penn,44
+C_herc,3
+M_punc,4
+L_neon,55
+```
+
+I kept most of my regular expression from Question 5, but I used `(\w{4})\w+` to keep the first four letters of the species name and delete the rest of the word.
+
+### Question 7
+
+Beginning again with the original data set from Question 5...
+
+Here's what I did in BB edit:
+```
+FIND: (\w{3})\w+\,(\w{3})\w+(\,)(\d*+\.\d),(\d*)
+REPLACE: \1\2\3 \5, \4
+```
+
+Here's what I got:
+```
+Campen, 44, 10.2
+Camher, 3, 10.5
+Myrpun, 4, 12.2
+Lasneo, 55, 3.3
+```
+
+`(\w{3})\w+\,(\w{3})\w+` captured the first three letters of the genus and species names and deleted the rest of the words. `(\,)` captured the comma I wanted at the end of the new fused word.  `(\d*+\.\d),(\d*)` separated the numbers on either side of the comma, so I could re-order them and add the spaces I wanted.

@@ -4,3 +4,5 @@ output: html_document
 ---
 
 Link to [Home](index.html)
+
+This is all there is to Homework 2. 
