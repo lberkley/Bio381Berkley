@@ -11,10 +11,26 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Link to [Home](index.html)
 
-1. This is the first question text:
+1. This is the first question text:   
+```
+First String    Second      1.22      3.4
+Second          More Text   1.555555  2.2220
+Third           x           3         124
+```
 
+Here's what I did in BB edit to turn this text into a `.csv` :   
 ```
-FIND: 
-REPLACE:
+FIND: (\h+)
+REPLACE: ,
 ```
-Brief explanation
+
+Here's the result:   
+```
+First,String,Second,1.22,3.4
+Second,More,Text,1.555555,2.2220
+Third,x,3,124
+```   
+
+`(\h+)` looks for horizontal white space, thus selecting the spaces between the words that I want to change. `,` replaces those spaces with a comma.
+
+2. 

@@ -173,11 +173,23 @@ pre code {
 
 <p>Link to <a href="index.html">Home</a></p>
 <ol style="list-style-type: decimal">
-<li>This is the first question text:</li>
+<li>This is the first question text:<br />
+</li>
 </ol>
-<pre><code>FIND: 
-REPLACE:</code></pre>
-<p>Brief explanation</p>
+<pre><code>First String    Second      1.22      3.4
+Second          More Text   1.555555  2.2220
+Third           x           3         124</code></pre>
+<p>Here’s what I did in BB edit to turn this text into a <code>.csv</code> :</p>
+<pre><code>FIND: (\h+)
+REPLACE: ,</code></pre>
+<p>Here’s the result:</p>
+<pre><code>First,String,Second,1.22,3.4
+Second,More,Text,1.555555,2.2220
+Third,x,3,124</code></pre>
+<p><code>(\h+)</code> looks for horizontal white space, thus selecting the spaces between the words that I want to change. <code>,</code> replaces those spaces with a comma.</p>
+<ol start="2" style="list-style-type: decimal">
+<li></li>
+</ol>
 
 
 
