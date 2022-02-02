@@ -11,7 +11,9 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Link to [Home](index.html)
 
-1. This is the first question text:   
+### Question 1
+
+This is the first question text:   
 ```
 First String    Second      1.22      3.4
 Second          More Text   1.555555  2.2220
@@ -33,4 +35,82 @@ Third,x,3,124
 
 `(\h+)` looks for horizontal white space, thus selecting the spaces between the words that I want to change. `,` replaces those spaces with a comma.
 
-2. 
+### Question 2
+
+This is the second question text:
+```   
+Ballif, Bryan, University of Vermont
+Ellison, Aaron, Harvard Forest
+Record, Sydne, Bryn Mawr
+```   
+
+Here's what I did in BB edit:
+```
+FIND: (\w*),\s(\w*),\s(\w.*)
+REPLACE: \1 \2 (\3)
+```
+
+Here's the result:
+```
+Ballif Bryan (University of Vermont)
+Ellison Aaron (Harvard Forest)
+Record Sydne (Bryn Mawr)
+```
+
+I selected the individual words, so that I could delete the commas after the first and second word, then add parentheses to the rest of the words.
+
+### Question 3
+
+This is the text for question 3:
+```
+0001 Georgia Horseshoe.mp3 0002 Billy In The Lowground.mp3 0003 Cherokee Shuffle.mp3 0004 Walking Cane.mp3
+```
+
+Here's what I did in BB edit:
+```
+FIND: (\.mp3\s)
+REPLACE: \1\n
+```
+
+Here's what I got:
+```
+0001 Georgia Horseshoe.mp3 
+0002 Billy In The Lowground.mp3 
+0003 Cherokee Shuffle.mp3 
+0004 Walking Cane.mp3
+```
+
+`(\.mp3\s)` selects the ".mp3" at the end of each line AND the space that follows it. When I replace that with `\1\n` it enters a line break after the ".mp3" and deletes the space.
+
+### Question 4
+
+Continuing with the edited text from Question 3...
+
+Here's what I did in BB edit:
+```
+FIND:(\d{4})(\s)(.*\w+)(\.mp3)
+REPLACE:\3_\1\4
+```
+
+Here's the result:
+```
+Georgia Horseshoe_0001.mp3 
+Billy In The Lowground_0002.mp3 
+Cherokee Shuffle_0003.mp3
+Walking Cane_0004.mp3
+```
+
+I separated the text into four captures: 1) the four-digit number, 2) the space after the four-digit number, 3) the song title, and 4) the ".mp3". I could easily move the four-digit number to after the song title, insert a "_" between the song title and four-digit number, and delete the unwanted space (by replacing it with nothing).
+
+### Question 5
+
+This is the text for Question 5:
+```
+Camponotus,pennsylvanicus,10.2,44
+Camponotus,herculeanus,10.5,3
+Myrmica,punctiventris,12.2,4
+Lasius,neoniger,3.3,55
+```
+
+Here's what I did in BB edit:
+```

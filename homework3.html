@@ -172,10 +172,9 @@ pre code {
 
 
 <p>Link to <a href="index.html">Home</a></p>
-<ol style="list-style-type: decimal">
-<li>This is the first question text:<br />
-</li>
-</ol>
+<div id="question-1" class="section level3">
+<h3>Question 1</h3>
+<p>This is the first question text:</p>
 <pre><code>First String    Second      1.22      3.4
 Second          More Text   1.555555  2.2220
 Third           x           3         124</code></pre>
@@ -187,9 +186,58 @@ REPLACE: ,</code></pre>
 Second,More,Text,1.555555,2.2220
 Third,x,3,124</code></pre>
 <p><code>(\h+)</code> looks for horizontal white space, thus selecting the spaces between the words that I want to change. <code>,</code> replaces those spaces with a comma.</p>
-<ol start="2" style="list-style-type: decimal">
-<li></li>
-</ol>
+</div>
+<div id="question-2" class="section level3">
+<h3>Question 2</h3>
+<p>This is the second question text:</p>
+<pre><code>Ballif, Bryan, University of Vermont
+Ellison, Aaron, Harvard Forest
+Record, Sydne, Bryn Mawr</code></pre>
+<p>Here’s what I did in BB edit:</p>
+<pre><code>FIND: (\w*),\s(\w*),\s(\w.*)
+REPLACE: \1 \2 (\3)</code></pre>
+<p>Here’s the result:</p>
+<pre><code>Ballif Bryan (University of Vermont)
+Ellison Aaron (Harvard Forest)
+Record Sydne (Bryn Mawr)</code></pre>
+<p>I selected the individual words, so that I could delete the commas after the first and second word, then add parentheses to the rest of the words.</p>
+</div>
+<div id="question-3" class="section level3">
+<h3>Question 3</h3>
+<p>This is the text for question 3:</p>
+<pre><code>0001 Georgia Horseshoe.mp3 0002 Billy In The Lowground.mp3 0003 Cherokee Shuffle.mp3 0004 Walking Cane.mp3</code></pre>
+<p>Here’s what I did in BB edit:</p>
+<pre><code>FIND: (\.mp3\s)
+REPLACE: \1\n</code></pre>
+<p>Here’s what I got:</p>
+<pre><code>0001 Georgia Horseshoe.mp3 
+0002 Billy In The Lowground.mp3 
+0003 Cherokee Shuffle.mp3 
+0004 Walking Cane.mp3</code></pre>
+<p><code>(\.mp3\s)</code> selects the “.mp3” at the end of each line AND the space that follows it. When I replace that with <code>\1\n</code> it enters a line break after the “.mp3” and deletes the space.</p>
+</div>
+<div id="question-4" class="section level3">
+<h3>Question 4</h3>
+<p>Continuing with the edited text from Question 3…</p>
+<p>Here’s what I did in BB edit:</p>
+<pre><code>FIND:(\d{4})(\s)(.*\w+)(\.mp3)
+REPLACE:\3_\1\4</code></pre>
+<p>Here’s the result:</p>
+<pre><code>Georgia Horseshoe_0001.mp3 
+Billy In The Lowground_0002.mp3 
+Cherokee Shuffle_0003.mp3
+Walking Cane_0004.mp3</code></pre>
+<p>I separated the text into four captures: 1) the four-digit number, 2) the space after the four-digit number, 3) the song title, and 4) the “.mp3”. I could easily move the four-digit number to after the song title, insert a “_” between the song title and four-digit number, and delete the unwanted space (by replacing it with nothing).</p>
+</div>
+<div id="question-5" class="section level3">
+<h3>Question 5</h3>
+<p>This is the text for Question 5:</p>
+<pre><code>Camponotus,pennsylvanicus,10.2,44
+Camponotus,herculeanus,10.5,3
+Myrmica,punctiventris,12.2,4
+Lasius,neoniger,3.3,55</code></pre>
+<p>Here’s what I did in BB edit: ```</p>
+</div>
 
 
 
