@@ -1,0 +1,108 @@
+---
+title: "Homework 4"
+author: "Lauren Berkley"
+date: "2/9/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+### Question 1
+
+```{r}
+# Defining variables
+x <- 1.1
+a <- 2.2
+b <- 3.3
+
+# a
+z <- x^b^a
+print(z)
+
+# b
+z <- (x^a)^b
+print(z)
+
+# c
+z <- 3*x^3 + 2*x^2 + 1
+print(z)
+```
+
+### Question 2
+```{r}
+# a
+c(seq(from = 1, to = 8), seq(from = 7, to = 1))
+
+# b
+c(1, rep(2, 2),rep(3, 3),rep(4, 4),rep(5, 5))
+
+#c
+c(5, rep(4, 2),rep(3, 3),rep(2, 4),rep(1,5))
+```
+
+### Question 3
+```{r}
+# Cartesian coordinates
+x <- runif(1)
+y <- runif(1)   
+
+print(x)
+print(y)
+
+# Polar coordinates
+r <- sqrt(x^2 + y^2)
+theta <- atan(y/x)  
+
+print(r)
+print(theta)
+```
+
+### Question 4
+```{r}
+# Introducing the queue
+queue <- c("sheep", "fox", "owl", "ant")
+
+# a
+queue <- append(queue, "serpent", after = 4)
+print(queue)
+
+# b
+queue <- queue[-1]
+print(queue)
+
+# c
+queue <- append(queue, "donkey", after = 0)
+print(queue)
+
+# d
+queue <- queue[-5]
+print(queue)
+
+# e
+queue <- queue[-3]
+print(queue)
+
+# f
+queue <- append(queue, "aphid", after = 2)
+print(queue)
+
+# g
+which(queue == "aphid")
+```
+
+### Question 5
+
+```{r}
+vector5 <- seq(100)
+vector5 <- vector5[-which(vector5 %% 2 != 0 | vector5 %% 3 != 0 | vector5 %% 7 != 0)]
+print(vector5)
+```
+

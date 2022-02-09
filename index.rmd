@@ -10,4 +10,5 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 Link to [Homework 2](homework2.html)      
-Link to [Homework 3](homework3.html)
+Link to [Homework 3](homework3.html)   
+Link to [Homework 4](homework4.html)
