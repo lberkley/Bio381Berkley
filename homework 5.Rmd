@@ -1,0 +1,91 @@
+---
+title: "Homework 5"
+author: "Lauren Berkley"
+date: "2/16/2022"
+output:
+  html_document:
+    theme: journal
+    toc: true
+    toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+### Question 1
+
+```{r}
+# Assign to the variable n_dims a single random integer between 3 and 10.
+n_dims <- floor(runif(1, min = 3, max = 10))
+print(n_dims)
+
+# Create a vector of consecutive integers from 1 to n_dims^2.
+next_vector <- seq(1:n_dims^2)
+print(next_vector)
+
+# Use the sample function to randomly reshuffle these values.
+sample(next_vector)
+
+# Create a square matrix with these elements.
+my_matrix <- matrix(next_vector, nrow = n_dims, byrow = TRUE)
+
+# Print out the matrix.
+print(my_matrix)
+
+# Find a function in r to transpose the matrix. I found the function transpose which is t(matrix).
+transposed_matrix <- t(my_matrix)
+
+# Print it out again and note how it has changed.
+print(transposed_matrix)
+
+# Calculate the sum and the mean of the elements in the first row and the last row.
+
+## Sum
+### First row
+sum(transposed_matrix[1,])
+### Last row
+sum(transposed_matrix[n_dims,])
+
+## Mean
+### First row
+mean(transposed_matrix[1,])
+### Last row
+mean(transposed_matrix[n_dims,])
+
+# Read about the eigen() function and use it on your matrix.
+eigen_lists <- eigen(transposed_matrix, only.values = FALSE, EISPACK = FALSE)
+print(eigen_lists)
+
+# Look carefully at the elements of $values and $vectors. What kind of numbers are these?
+## ???
+
+# Dig in with the typeof() function to figure out their type.
+typeof(eigen_lists $ values)
+typeof(eigen_lists $ vectors)
+
+# If have set your code up properly, you should be able to re-run it and create a matrix of different size because n_dims will change.
+## Yep!
+```
+
+### Question 2
+
+```{r}
+# Create a list with the following named elements:
+# my_matrix, which is a 4 x 4 matrix filled with random uniform values
+# my_logical which is a 100-element vector of TRUE or FALSE values. Do this efficiently by setting up a vector of random values and then applying an inequality to it.
+# my_letters, which is a 26-element vector of all the lower-case letters in random order.
+
+my_matrix <- matrix(runif(16), nrow = 4, byrow = TRUE)
+print(my_new_matrix)
+
+my_logical <- runif(100) < 0.5
+print(my_logical)
+
+my_letters <- sample(letters[seq(1:26)])
+print(my_letters)
+
+my_list <- c(my_matrix, my_logical, my_letters)
+print(my_list)
+```
+
