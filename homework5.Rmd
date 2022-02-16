@@ -13,6 +13,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Link to [Home](index.html)
+
 ### Question 1
 
 ```{r}

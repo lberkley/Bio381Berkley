@@ -247,73 +247,99 @@ div.tocify {
 </div>
 
 
+<p>Link to <a href="index.html">Home</a></p>
 <div id="question-1" class="section level3">
 <h3>Question 1</h3>
 <pre class="r"><code># Assign to the variable n_dims a single random integer between 3 and 10.
 n_dims &lt;- floor(runif(1, min = 3, max = 10))
 print(n_dims)</code></pre>
-<pre><code>## [1] 3</code></pre>
+<pre><code>## [1] 7</code></pre>
 <pre class="r"><code># Create a vector of consecutive integers from 1 to n_dims^2.
 next_vector &lt;- seq(1:n_dims^2)
 print(next_vector)</code></pre>
-<pre><code>## [1] 1 2 3 4 5 6 7 8 9</code></pre>
+<pre><code>##  [1]  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25
+## [26] 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43 44 45 46 47 48 49</code></pre>
 <pre class="r"><code># Use the sample function to randomly reshuffle these values.
 sample(next_vector)</code></pre>
-<pre><code>## [1] 7 3 9 8 1 5 4 6 2</code></pre>
+<pre><code>##  [1]  6 48  1 12 19 29  3 13 44 35 10 23 34 43 47 41 18 22  4 14  9 45 39 40 49
+## [26]  7 37  8 17  2 28  5 42 27 36 31 16 24 38 30 33 26 46 21 11 25 15 20 32</code></pre>
 <pre class="r"><code># Create a square matrix with these elements.
 my_matrix &lt;- matrix(next_vector, nrow = n_dims, byrow = TRUE)
 
 # Print out the matrix.
 print(my_matrix)</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    2    3
-## [2,]    4    5    6
-## [3,]    7    8    9</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+## [1,]    1    2    3    4    5    6    7
+## [2,]    8    9   10   11   12   13   14
+## [3,]   15   16   17   18   19   20   21
+## [4,]   22   23   24   25   26   27   28
+## [5,]   29   30   31   32   33   34   35
+## [6,]   36   37   38   39   40   41   42
+## [7,]   43   44   45   46   47   48   49</code></pre>
 <pre class="r"><code># Find a function in r to transpose the matrix. I found the function transpose which is t(matrix).
 transposed_matrix &lt;- t(my_matrix)
 
 # Print it out again and note how it has changed.
 print(transposed_matrix)</code></pre>
-<pre><code>##      [,1] [,2] [,3]
-## [1,]    1    4    7
-## [2,]    2    5    8
-## [3,]    3    6    9</code></pre>
+<pre><code>##      [,1] [,2] [,3] [,4] [,5] [,6] [,7]
+## [1,]    1    8   15   22   29   36   43
+## [2,]    2    9   16   23   30   37   44
+## [3,]    3   10   17   24   31   38   45
+## [4,]    4   11   18   25   32   39   46
+## [5,]    5   12   19   26   33   40   47
+## [6,]    6   13   20   27   34   41   48
+## [7,]    7   14   21   28   35   42   49</code></pre>
 <pre class="r"><code># Calculate the sum and the mean of the elements in the first row and the last row.
 
 ## Sum
 ### First row
 sum(transposed_matrix[1,])</code></pre>
-<pre><code>## [1] 12</code></pre>
+<pre><code>## [1] 154</code></pre>
 <pre class="r"><code>### Last row
 sum(transposed_matrix[n_dims,])</code></pre>
-<pre><code>## [1] 18</code></pre>
+<pre><code>## [1] 196</code></pre>
 <pre class="r"><code>## Mean
 ### First row
 mean(transposed_matrix[1,])</code></pre>
-<pre><code>## [1] 4</code></pre>
+<pre><code>## [1] 22</code></pre>
 <pre class="r"><code>### Last row
 mean(transposed_matrix[n_dims,])</code></pre>
-<pre><code>## [1] 6</code></pre>
+<pre><code>## [1] 28</code></pre>
 <pre class="r"><code># Read about the eigen() function and use it on your matrix.
 eigen_lists &lt;- eigen(transposed_matrix, only.values = FALSE, EISPACK = FALSE)
 print(eigen_lists)</code></pre>
 <pre><code>## eigen() decomposition
 ## $values
-## [1]  1.611684e+01 -1.116844e+00 -5.700691e-16
+## [1]  1.825171e+02+0.00000e+00i -7.517104e+00+0.00000e+00i
+## [3] -4.354702e-15+0.00000e+00i -2.220629e-16+2.99275e-15i
+## [5] -2.220629e-16-2.99275e-15i  2.675386e-15+0.00000e+00i
+## [7]  9.721659e-16+0.00000e+00i
 ## 
 ## $vectors
-##            [,1]       [,2]       [,3]
-## [1,] -0.4645473 -0.8829060  0.4082483
-## [2,] -0.5707955 -0.2395204 -0.8164966
-## [3,] -0.6770438  0.4038651  0.4082483</code></pre>
+##               [,1]           [,2]          [,3]                  [,4]
+## [1,] -0.3334971+0i -0.67829687+0i  0.6408566+0i -0.2584422+0.1127496i
+## [2,] -0.3479505+0i -0.51179756+0i -0.4702721+0i -0.0382905-0.3223866i
+## [3,] -0.3624040+0i -0.34529825+0i -0.2052901+0i  0.1317648+0.3366326i
+## [4,] -0.3768574+0i -0.17879894+0i -0.3054831+0i  0.4566764+0.0000000i
+## [5,] -0.3913109+0i -0.01229963+0i  0.2429175+0i -0.2723846-0.1062491i
+## [6,] -0.4057643+0i  0.15419968+0i -0.2420045+0i  0.3897870-0.1985966i
+## [7,] -0.4202178+0i  0.32069899+0i  0.3392757+0i -0.4091108+0.1778501i
+##                       [,5]          [,6]           [,7]
+## [1,] -0.2584422-0.1127496i  0.4162032+0i  0.39087549+0i
+## [2,] -0.0382905+0.3223866i  0.2424694+0i  0.23636267+0i
+## [3,]  0.1317648-0.3366326i -0.7441375+0i -0.79112307+0i
+## [4,]  0.4566764+0.0000000i -0.1254371+0i -0.09811628+0i
+## [5,] -0.2723846+0.1062491i -0.2748664+0i  0.03655942+0i
+## [6,]  0.3897870+0.1985966i  0.1930277+0i -0.14134400+0i
+## [7,] -0.4091108-0.1778501i  0.2927407+0i  0.36678577+0i</code></pre>
 <pre class="r"><code># Look carefully at the elements of $values and $vectors. What kind of numbers are these?
 ## complex numbers
 
 # Dig in with the typeof() function to figure out their type.
 typeof(eigen_lists $ values)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
 <pre class="r"><code>typeof(eigen_lists $ vectors)</code></pre>
-<pre><code>## [1] &quot;double&quot;</code></pre>
+<pre><code>## [1] &quot;complex&quot;</code></pre>
 <pre class="r"><code># If have set your code up properly, you should be able to re-run it and create a matrix of different size because n_dims will change.
 ## Yep!</code></pre>
 </div>
@@ -326,88 +352,88 @@ typeof(eigen_lists $ values)</code></pre>
 
 my_matrix &lt;- matrix(runif(16), nrow = 4, byrow = TRUE)
 print(my_matrix)</code></pre>
-<pre><code>##            [,1]      [,2]      [,3]      [,4]
-## [1,] 0.06595906 0.2972746 0.2973494 0.5659733
-## [2,] 0.86992502 0.8043147 0.3176639 0.2317261
-## [3,] 0.91051369 0.7380784 0.2970677 0.7205421
-## [4,] 0.06174043 0.1053683 0.6214891 0.2997211</code></pre>
+<pre><code>##           [,1]      [,2]      [,3]      [,4]
+## [1,] 0.9630017 0.5776137 0.4534113 0.6890888
+## [2,] 0.7255337 0.7680536 0.1377345 0.1392590
+## [3,] 0.8187768 0.9308426 0.2781052 0.1440733
+## [4,] 0.5606016 0.9468982 0.4611294 0.4095402</code></pre>
 <pre class="r"><code>my_logical &lt;- runif(100) &lt; 0.5
 print(my_logical)</code></pre>
-<pre><code>##   [1] FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE
-##  [13] FALSE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE FALSE
-##  [25] FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE
-##  [37]  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE
-##  [49]  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE FALSE  TRUE FALSE
-##  [61]  TRUE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE  TRUE  TRUE FALSE
-##  [73]  TRUE FALSE FALSE FALSE  TRUE FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE
-##  [85] FALSE FALSE FALSE  TRUE  TRUE  TRUE  TRUE FALSE FALSE FALSE FALSE  TRUE
-##  [97] FALSE  TRUE  TRUE  TRUE</code></pre>
+<pre><code>##   [1] FALSE  TRUE FALSE FALSE  TRUE FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE
+##  [13]  TRUE FALSE FALSE  TRUE  TRUE FALSE  TRUE FALSE  TRUE  TRUE  TRUE FALSE
+##  [25] FALSE  TRUE FALSE FALSE FALSE FALSE  TRUE FALSE FALSE FALSE FALSE FALSE
+##  [37]  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE  TRUE  TRUE FALSE  TRUE
+##  [49] FALSE FALSE FALSE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE FALSE FALSE
+##  [61]  TRUE  TRUE FALSE FALSE  TRUE FALSE FALSE  TRUE FALSE FALSE FALSE  TRUE
+##  [73]  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE
+##  [85] FALSE  TRUE  TRUE FALSE  TRUE  TRUE  TRUE FALSE  TRUE  TRUE FALSE  TRUE
+##  [97] FALSE  TRUE  TRUE FALSE</code></pre>
 <pre class="r"><code>my_letters &lt;- sample(letters[seq(1:26)])
 print(my_letters)</code></pre>
-<pre><code>##  [1] &quot;e&quot; &quot;s&quot; &quot;k&quot; &quot;q&quot; &quot;f&quot; &quot;i&quot; &quot;g&quot; &quot;z&quot; &quot;p&quot; &quot;d&quot; &quot;w&quot; &quot;t&quot; &quot;a&quot; &quot;u&quot; &quot;c&quot; &quot;o&quot; &quot;l&quot; &quot;h&quot; &quot;b&quot;
-## [20] &quot;m&quot; &quot;r&quot; &quot;x&quot; &quot;y&quot; &quot;j&quot; &quot;n&quot; &quot;v&quot;</code></pre>
+<pre><code>##  [1] &quot;p&quot; &quot;b&quot; &quot;f&quot; &quot;m&quot; &quot;r&quot; &quot;l&quot; &quot;e&quot; &quot;q&quot; &quot;v&quot; &quot;a&quot; &quot;o&quot; &quot;s&quot; &quot;i&quot; &quot;n&quot; &quot;w&quot; &quot;k&quot; &quot;x&quot; &quot;j&quot; &quot;y&quot;
+## [20] &quot;d&quot; &quot;t&quot; &quot;z&quot; &quot;c&quot; &quot;u&quot; &quot;h&quot; &quot;g&quot;</code></pre>
 <pre class="r"><code>my_list &lt;- c(my_matrix, my_logical, my_letters)
 print(my_list)</code></pre>
-<pre><code>##   [1] &quot;0.0659590617287904&quot; &quot;0.869925020262599&quot;  &quot;0.910513692069799&quot; 
-##   [4] &quot;0.0617404317017645&quot; &quot;0.29727464960888&quot;   &quot;0.804314664797857&quot; 
-##   [7] &quot;0.738078425638378&quot;  &quot;0.105368311051279&quot;  &quot;0.297349420841783&quot; 
-##  [10] &quot;0.317663928261027&quot;  &quot;0.297067678766325&quot;  &quot;0.621489105280489&quot; 
-##  [13] &quot;0.565973298624158&quot;  &quot;0.231726144673303&quot;  &quot;0.720542115392163&quot; 
-##  [16] &quot;0.299721103161573&quot;  &quot;FALSE&quot;              &quot;FALSE&quot;             
-##  [19] &quot;TRUE&quot;               &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [22] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [25] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [28] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [31] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [34] &quot;TRUE&quot;               &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [37] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [40] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;FALSE&quot;             
-##  [43] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [46] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [49] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;FALSE&quot;             
-##  [52] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [55] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [58] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [61] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [64] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [67] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [70] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [73] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [76] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [79] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [82] &quot;TRUE&quot;               &quot;FALSE&quot;              &quot;FALSE&quot;             
-##  [85] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;TRUE&quot;              
-##  [88] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [91] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;TRUE&quot;              
-##  [94] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-##  [97] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;FALSE&quot;             
-## [100] &quot;TRUE&quot;               &quot;FALSE&quot;              &quot;FALSE&quot;             
-## [103] &quot;FALSE&quot;              &quot;TRUE&quot;               &quot;TRUE&quot;              
-## [106] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;FALSE&quot;             
-## [109] &quot;FALSE&quot;              &quot;FALSE&quot;              &quot;FALSE&quot;             
-## [112] &quot;TRUE&quot;               &quot;FALSE&quot;              &quot;TRUE&quot;              
-## [115] &quot;TRUE&quot;               &quot;TRUE&quot;               &quot;e&quot;                 
-## [118] &quot;s&quot;                  &quot;k&quot;                  &quot;q&quot;                 
-## [121] &quot;f&quot;                  &quot;i&quot;                  &quot;g&quot;                 
-## [124] &quot;z&quot;                  &quot;p&quot;                  &quot;d&quot;                 
-## [127] &quot;w&quot;                  &quot;t&quot;                  &quot;a&quot;                 
-## [130] &quot;u&quot;                  &quot;c&quot;                  &quot;o&quot;                 
-## [133] &quot;l&quot;                  &quot;h&quot;                  &quot;b&quot;                 
-## [136] &quot;m&quot;                  &quot;r&quot;                  &quot;x&quot;                 
-## [139] &quot;y&quot;                  &quot;j&quot;                  &quot;n&quot;                 
-## [142] &quot;v&quot;</code></pre>
+<pre><code>##   [1] &quot;0.963001661002636&quot; &quot;0.725533716613427&quot; &quot;0.8187768291682&quot;  
+##   [4] &quot;0.560601629782468&quot; &quot;0.577613679692149&quot; &quot;0.76805359357968&quot; 
+##   [7] &quot;0.930842632427812&quot; &quot;0.946898207534105&quot; &quot;0.453411291819066&quot;
+##  [10] &quot;0.137734526535496&quot; &quot;0.278105191653594&quot; &quot;0.46112942439504&quot; 
+##  [13] &quot;0.689088818849996&quot; &quot;0.139259025454521&quot; &quot;0.144073307979852&quot;
+##  [16] &quot;0.409540206426755&quot; &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [19] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [22] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [25] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [28] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [31] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [34] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [37] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [40] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [43] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;FALSE&quot;            
+##  [46] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [49] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;FALSE&quot;            
+##  [52] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [55] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [58] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [61] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [64] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;FALSE&quot;            
+##  [67] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [70] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [73] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;FALSE&quot;            
+##  [76] &quot;FALSE&quot;             &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [79] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [82] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;TRUE&quot;             
+##  [85] &quot;FALSE&quot;             &quot;FALSE&quot;             &quot;FALSE&quot;            
+##  [88] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [91] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [94] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;TRUE&quot;             
+##  [97] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;TRUE&quot;             
+## [100] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;TRUE&quot;             
+## [103] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;TRUE&quot;             
+## [106] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;FALSE&quot;            
+## [109] &quot;TRUE&quot;              &quot;TRUE&quot;              &quot;FALSE&quot;            
+## [112] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;TRUE&quot;             
+## [115] &quot;TRUE&quot;              &quot;FALSE&quot;             &quot;p&quot;                
+## [118] &quot;b&quot;                 &quot;f&quot;                 &quot;m&quot;                
+## [121] &quot;r&quot;                 &quot;l&quot;                 &quot;e&quot;                
+## [124] &quot;q&quot;                 &quot;v&quot;                 &quot;a&quot;                
+## [127] &quot;o&quot;                 &quot;s&quot;                 &quot;i&quot;                
+## [130] &quot;n&quot;                 &quot;w&quot;                 &quot;k&quot;                
+## [133] &quot;x&quot;                 &quot;j&quot;                 &quot;y&quot;                
+## [136] &quot;d&quot;                 &quot;t&quot;                 &quot;z&quot;                
+## [139] &quot;c&quot;                 &quot;u&quot;                 &quot;h&quot;                
+## [142] &quot;g&quot;</code></pre>
 <pre class="r"><code># Create a new list, which has the element[2,2] from the matrix, the second element of the logical vector, and the second element of the letters vector.
 
 my_new_list &lt;- list(my_matrix[2,2], my_logical[2], my_letters[2])
 print(my_new_list)</code></pre>
 <pre><code>## [[1]]
-## [1] 0.8043147
+## [1] 0.7680536
 ## 
 ## [[2]]
-## [1] FALSE
+## [1] TRUE
 ## 
 ## [[3]]
-## [1] &quot;s&quot;</code></pre>
+## [1] &quot;b&quot;</code></pre>
 <pre class="r"><code># Use the typeof() function to confirm the underlying data types of each component in this list
 
 typeof(my_new_list[[1]])</code></pre>
@@ -419,7 +445,7 @@ typeof(my_new_list[[1]])</code></pre>
 <pre class="r"><code># Combine the underlying elements from the new list into a single atomic vector with the c() function.
 my_new_vector &lt;- c(my_matrix[2,2], my_logical[2], my_letters[2])
 print(my_new_vector)</code></pre>
-<pre><code>## [1] &quot;0.804314664797857&quot; &quot;FALSE&quot;             &quot;s&quot;</code></pre>
+<pre><code>## [1] &quot;0.76805359357968&quot; &quot;TRUE&quot;             &quot;b&quot;</code></pre>
 <pre class="r"><code># What is the data type of this vector?
 typeof(my_new_vector)</code></pre>
 <pre><code>## [1] &quot;character&quot;</code></pre>
@@ -436,71 +462,71 @@ my_letters &lt;- sample(LETTERS[seq(1:26)])
 my_data_frame &lt;- data.frame(my_unis, my_letters)
 print(my_data_frame)</code></pre>
 <pre><code>##      my_unis my_letters
-## 1  9.1316366          H
-## 2  7.5098154          S
-## 3  0.1542552          Z
-## 4  0.2198118          E
-## 5  5.2468970          F
-## 6  4.7746664          A
-## 7  2.5912048          O
-## 8  7.2542339          D
-## 9  7.8228985          M
-## 10 7.9258939          T
-## 11 1.4052463          V
-## 12 8.6284432          U
-## 13 8.7706173          I
-## 14 3.2624021          P
-## 15 5.4893304          J
-## 16 4.0619994          N
-## 17 7.8187408          W
-## 18 3.6584023          K
-## 19 9.2203871          G
-## 20 9.8284474          C
-## 21 9.6398899          R
-## 22 9.7378953          Y
-## 23 0.3502459          L
-## 24 5.8682563          B
-## 25 1.2626642          Q
-## 26 4.4953665          X</code></pre>
+## 1  1.6243294          B
+## 2  3.7026636          D
+## 3  0.9933033          J
+## 4  5.2694764          A
+## 5  3.5412362          V
+## 6  7.5838329          Z
+## 7  9.9890532          W
+## 8  3.4518953          X
+## 9  8.9574739          U
+## 10 7.1559895          N
+## 11 9.5576436          R
+## 12 6.1595550          K
+## 13 0.8741354          T
+## 14 4.9031483          O
+## 15 4.0057958          S
+## 16 3.3469411          I
+## 17 5.6071770          G
+## 18 8.2843800          Q
+## 19 1.9705214          C
+## 20 4.6008710          Y
+## 21 6.1491022          L
+## 22 2.8309412          H
+## 23 5.9159811          F
+## 24 6.5767022          P
+## 25 7.8603893          M
+## 26 2.1486117          E</code></pre>
 <pre class="r"><code># for the first variable, use a single line of code in R to select 4 random rows and replace the numerical values in those rows with NA.
 my_data_frame[,1] &lt;- replace(x = my_data_frame[,1], list = sample(nrow(my_data_frame),4), values = NA)
 
 # for the first variable, write a single line of R code to identify which rows have the missing values.
 which(is.na(my_data_frame))</code></pre>
-<pre><code>## [1]  2  7 23 24</code></pre>
+<pre><code>## [1]  8 10 12 15</code></pre>
 <pre class="r"><code># for the second variable, sort it in alphabetical order
 my_data_frame[,2] &lt;- sort(my_data_frame[,2], decreasing = FALSE)
 print(my_data_frame)</code></pre>
 <pre><code>##      my_unis my_letters
-## 1  9.1316366          A
-## 2         NA          B
-## 3  0.1542552          C
-## 4  0.2198118          D
-## 5  5.2468970          E
-## 6  4.7746664          F
-## 7         NA          G
-## 8  7.2542339          H
-## 9  7.8228985          I
-## 10 7.9258939          J
-## 11 1.4052463          K
-## 12 8.6284432          L
-## 13 8.7706173          M
-## 14 3.2624021          N
-## 15 5.4893304          O
-## 16 4.0619994          P
-## 17 7.8187408          Q
-## 18 3.6584023          R
-## 19 9.2203871          S
-## 20 9.8284474          T
-## 21 9.6398899          U
-## 22 9.7378953          V
-## 23        NA          W
-## 24        NA          X
-## 25 1.2626642          Y
-## 26 4.4953665          Z</code></pre>
+## 1  1.6243294          A
+## 2  3.7026636          B
+## 3  0.9933033          C
+## 4  5.2694764          D
+## 5  3.5412362          E
+## 6  7.5838329          F
+## 7  9.9890532          G
+## 8         NA          H
+## 9  8.9574739          I
+## 10        NA          J
+## 11 9.5576436          K
+## 12        NA          L
+## 13 0.8741354          M
+## 14 4.9031483          N
+## 15        NA          O
+## 16 3.3469411          P
+## 17 5.6071770          Q
+## 18 8.2843800          R
+## 19 1.9705214          S
+## 20 4.6008710          T
+## 21 6.1491022          U
+## 22 2.8309412          V
+## 23 5.9159811          W
+## 24 6.5767022          X
+## 25 7.8603893          Y
+## 26 2.1486117          Z</code></pre>
 <pre class="r"><code>#calculate the column mean for the first variable
 mean(which(!complete.cases(my_data_frame)))</code></pre>
-<pre><code>## [1] 14</code></pre>
+<pre><code>## [1] 11.25</code></pre>
 </div>
 
 
