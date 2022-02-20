@@ -132,7 +132,7 @@ my_data_frame[,2] <- sort(my_data_frame[,2], decreasing = FALSE)
 print(my_data_frame)
 
 #calculate the column mean for the first variable
-mean(which(complete.cases(my_data_frame)))
+mean(complete.cases(my_data_frame[,1]))
 ```
 
 
