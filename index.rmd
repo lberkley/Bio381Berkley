@@ -1,8 +1,8 @@
 ---
 title: "Home Page"
 output: 
-  prettydoc::html_pretty:
-    theme: hpstr
+    html_document:
+      theme: journal
 ---
 
 ```{r setup, include=FALSE}
