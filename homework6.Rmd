@@ -1,0 +1,168 @@
+---
+title: "Homework 6"
+author: "Lauren Berkley"
+date: "2/23/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+```{r}
+library(ggplot2) # for graphics
+library(MASS) # for maximum likelihood estimation
+
+# I used this data first then commented it out so I could use my own data. 
+
+# z <- rnorm(n=3000,mean=0.2)
+# z <- data.frame(1:3000,z)
+# names(z) <- list("ID","myVar")
+# z <- z[z$myVar>0,]
+# str(z)
+# summary(z$myVar)
+
+# The data I chose for this assignment was the snout to vent lengths of salamanders measured during a research project at Murray State University. 
+
+# First I found the path to my data to bring it into the markdown file.
+z <- read.table(file="mysalamanderdata.csv",header=TRUE,sep=",")
+str(z)
+summary(z)
+```
+
+### Plot histogram of data
+```{r}
+# This chunk of code generates a histogram with the SVL data on the x axis and the density of the different SVL values on the y axis. The color is cornsilk and the border is gray60.
+p1 <- ggplot(data=z, aes(x=SVL, y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+print(p1)
+```
+
+### Add empirical density curve
+```{r}
+# Adding a dotted line to show empirical density. 
+p1 <-  p1 +  geom_density(linetype="dotted",size=0.75)
+print(p1)
+```
+
+### Get maximum likelihood parameters for `normal`
+```{r}
+normPars <- fitdistr(z$SVL,"normal")
+print(normPars)
+str(normPars)
+normPars$estimate["mean"] # note structure of getting a named attribute
+```
+
+### Plot `normal` probability density
+```{r}
+meanML <- normPars$estimate["mean"]
+sdML <- normPars$estimate["sd"]
+
+xval <- seq(0,max(z$SVL),len=length(z$SVL))
+
+stat <- stat_function(aes(x = xval, y = ..y..), fun = dnorm, colour="red", n = length(z$SVL), args = list(mean = meanML, sd = sdML))
+ p1 + stat
+```
+
+### Plot `exponential` probability density
+```{r}
+expoPars <- fitdistr(z$SVL,"exponential")
+rateML <- expoPars$estimate["rate"]
+
+stat2 <- stat_function(aes(x = xval, y = ..y..), fun = dexp, colour="blue", n = length(z$SVL), args = list(rate=rateML))
+ p1 + stat + stat2
+```
+
+### Plot `uniform` probability density
+```{r}
+stat3 <- stat_function(aes(x = xval, y = ..y..), fun = dunif, colour="darkgreen", n = length(z$SVL), args = list(min=min(z$SVL), max=max(z$SVL)))
+ p1 + stat + stat2 + stat3
+```
+
+### Plot `gamma` probability density
+```{r}
+gammaPars <- fitdistr(z$SVL,"gamma")
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+stat4 <- stat_function(aes(x = xval, y = ..y..), fun = dgamma, colour="brown", n = length(z$SVL), args = list(shape=shapeML, rate=rateML))
+ p1 + stat + stat2 + stat3 + stat4
+```
+
+### Plot `beta` probability density
+```{r}
+pSpecial <- ggplot(data=z, aes(x=SVL/(max(SVL + 0.1)), y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) + 
+  xlim(c(0,1)) +
+  geom_density(size=0.75,linetype="dotted")
+
+betaPars <- fitdistr(x=z$SVL/max(z$SVL + 0.1),start=list(shape1=1,shape2=2),"beta")
+shape1ML <- betaPars$estimate["shape1"]
+shape2ML <- betaPars$estimate["shape2"]
+
+statSpecial <- stat_function(aes(x = xval, y = ..y..), fun = dbeta, colour="orchid", n = length(z$SVL), args = list(shape1=shape1ML,shape2=shape2ML))
+pSpecial + statSpecial
+```
+
+### What is the best fitting distribution?
+The `normal` and the `gamma` distributions fit the salamander data very well. I think the `gamma` distribution is preferred,  because it can not go below zero and it would not be possible to have a negative salamander length. 
+
+### Simulate a new data set
+```{r}
+# Max likelihood parameters from gamma distribution
+
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+# Make a data frame that is the same length as my salamander data
+x <- rgamma(n= length(z$SVL), shape = 61.31629, rate = 1.484091)
+d <- seq(1:length(x))
+
+w <- data.frame(x,d)
+print(w)
+
+# Make a histogram
+p1 <- ggplot(data=w, aes(x=x, y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+print(p1)
+
+# Add gamma distribution
+gammaPars <- fitdistr(z$SVL,"gamma")
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+new_gamma <- stat_function(aes(x = x, y = ..y..), fun = dgamma, colour="brown", n = nrow(w), args = list(shape=shapeML, rate=rateML))
+print(p1+new_gamma)
+
+# Fresh histogram of original salamander data
+p1 <- ggplot(data=z, aes(x=SVL, y=..density..)) +
+  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+
+gammaPars <- fitdistr(z$SVL,"gamma")
+shapeML <- gammaPars$estimate["shape"]
+rateML <- gammaPars$estimate["rate"]
+
+stat4 <- stat_function(aes(x = xval, y = ..y..), fun = dgamma, colour="brown", n = length(z$SVL), args = list(shape=shapeML, rate=rateML))
+ p1 + stat4
+ 
+# I don't know why the model is creating an x-axis that goes all the way to zero for some plots, and for others the axis starts at a higher value. 
+```
+
+### Final questions
+
+1. How do the two histogram profiles compare? Do you think the model is doing a good job of simulating realistic data that match your original measurements? Why or why not?
+
+Based on this project, the model does an excellent of simulating realistic data. Because the axes of my graphs are different (I'm not sure why), at first glance it would appear that thes simulated data set is more varied than the real data, but both data sets are actually within the range of 30-50 or so. 
+
+2. If you have entered a large data frame with many columns, try running all of the code on a different variable to see how the simulation performs.
+
+This is not really possible for me (as far as I know) because the other columns of my data set are characters. 
+
+
+
