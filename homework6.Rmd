@@ -129,7 +129,7 @@ print(w)
 
 # Make a histogram
 p1 <- ggplot(data=w, aes(x=x, y=..density..)) +
-  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+  geom_histogram(color="grey60",fill="deepskyblue4",size=0.2) 
 print(p1)
 
 # Add gamma distribution
@@ -142,7 +142,7 @@ print(p1+new_gamma)
 
 # Fresh histogram of original salamander data
 p1 <- ggplot(data=z, aes(x=SVL, y=..density..)) +
-  geom_histogram(color="grey60",fill="cornsilk",size=0.2) 
+  geom_histogram(color="grey60",fill="deepskyblue4",size=0.2)
 
 gammaPars <- fitdistr(z$SVL,"gamma")
 shapeML <- gammaPars$estimate["shape"]
@@ -151,14 +151,14 @@ rateML <- gammaPars$estimate["rate"]
 stat4 <- stat_function(aes(x = xval, y = ..y..), fun = dgamma, colour="brown", n = length(z$SVL), args = list(shape=shapeML, rate=rateML))
  p1 + stat4
  
-# I don't know why the model is creating an x-axis that goes all the way to zero for some plots, and for others the axis starts at a higher value. 
+# I don't know why the model is creating an x-axis that goes all the way to zero for some plots, and for others the axis starts at a higher value. I tried using xlim to change the x-axis, but I had a hard time with that. 
 ```
 
 ### Final questions
 
 1. How do the two histogram profiles compare? Do you think the model is doing a good job of simulating realistic data that match your original measurements? Why or why not?
 
-Based on this project, the model does an excellent of simulating realistic data. Because the axes of my graphs are different (I'm not sure why), at first glance it would appear that thes simulated data set is more varied than the real data, but both data sets are actually within the range of 30-50 or so. 
+Based on this project, the model does an excellent job of simulating realistic data. Because the axes of my graphs are different (I'm not sure why), at first glance it would appear that the simulated data set is more varied than the real data, but both data sets are actually within the range of 30-50 or so. 
 
 2. If you have entered a large data frame with many columns, try running all of the code on a different variable to see how the simulation performs.
 
