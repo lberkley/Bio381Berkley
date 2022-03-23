@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Link to [Home](index.html)
 
+# Writing functions to simulate and analyze deer data.
 ```{r}
 # Description -----------------------------------
 # This is a script for Homework 9. I am using the data from Homework 8. I am going to focus on my predictions for the infection rate of Plasmodium odocoilei in white tailed deer. Based on previous research, I hypothesize that white-tailed deer across Vermont, New Hampshire, and Maine are infected with Plasmodium odocoilei at a rate of about 25%.
@@ -30,6 +31,9 @@ library(tidyverse)
 library(boot)
 library(ggplot2)
 library(broom)
+source("Functions/sim_deer_data.R")
+source("Functions/calculate_deer_stuff.R")
+source("Functions/graph_deer_results.R")
 
 # Global Variables ------------------------------
 
@@ -39,27 +43,17 @@ ME <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
 
 # Program Body ----------------------------------
 
-Fake_Deer_Data <- sim_deer_data() # create fake data frame
-head(Fake_Deer_Data)
+PrePivot_Deer_Data <- sim_deer_data() # create fake data frame
+head(PrePivot_Deer_Data)
 
-pred <- temp1[,x_col] # extract predictor variable
-res <- temp1[,y_col] # extract response variable
+Deer_Data <- PrePivot_Deer_Data %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(Deer_Data)
 
-temp2 <- calculate_stuff(x_var=pred,y_var=res)
-temp3 <- summarize_output(temp2)
+Deer_ANOVA <- calculate_deer_stuff(Deer_Data)
+print(Deer_ANOVA)
 
-graph_results(x_var=pred,y_var=res) # create graph
-
-print(temp2) # shows model summary
-print(temp3) # residuals from the regression
-
-get_data()
-calculate_stuff()
-summarize_output()
-graph_results()
+graph_deer_results(Deer_Data) # create graph
 ```
-
-
-```
-
-
