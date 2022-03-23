@@ -54,11 +54,7 @@ head(Deer_Data)
 Deer_ANOVA <- calculate_deer_stuff(Deer_Data)
 print(Deer_ANOVA)
 
-# graph_deer_results(Deer_Data) # create graph
-
-sim_deer_data()
-calculate_deer_stuff()
-# graph_deer_results()
+graph_deer_results(Deer_Data) # create graph
 ```
 
 
