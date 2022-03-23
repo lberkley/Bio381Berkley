@@ -1,0 +1,130 @@
+---
+title: "Homework 8"
+author: "Lauren Berkley"
+date: "3/16/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+My thesis project is focused on survyeing for cryptic cervid pathogens in the northeastern United States. The pathogens I am looking at include Babesia odocolei, Plasmodium odocoilei, and Theileria cervi. For this homework, I am going to focus on my predictions for the infection rate of Plasmodium odocoilei in white tailed deer. 
+
+Based on previous research, I hypothesize that white-tailed deer across Vermont, New Hampshire, and Maine are infected with Plasmodium odocoilei at a rate of about 25%.
+
+### Start with simulating a normal data set. 
+```{r}
+
+library(boot)
+library(ggplot2)
+library(tidyverse)
+library(broom)
+
+# Norm dist
+VT <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+NH <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+ME <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+
+# Making a data set
+PrePivotPlasmodiumData <- data.frame(VT,NH,ME)
+head(PrePivotPlasmodiumData)
+
+PlasmodiumData <- PrePivotPlasmodiumData %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(PlasmodiumData)
+
+# If my independent variable is state (discrete) and my dependent variable is rate of infection (continuous) I should run an ANOVA.
+
+# PlasmodiumANOVA 
+
+PlasmodiumANOVA <- aov(InfectionRate ~ State, data=PlasmodiumData)
+summary(PlasmodiumANOVA)
+
+# Ran multiple times to test different random numbers.
+```
+
+### Changing the means of different groups.
+I decided to alter the mean infection rate of the states based on the latitude. I expect that more southern states have higher levels of infection rate due to higher populations of Anopheles mosquitoes, the vectors of Plasmodium odocoilei. So, I gave VT and NH infection rates slightly higher than 25%, and Maine a slightly lower infection rate than 25%. My results showed a statistically significant difference, which I did not get from my initial analysis. This makes sense because initially my inputs were all the same. 
+```{r}
+VT <- inv.logit(rnorm(n=500,mean=0.30,sd=.50))
+NH <- inv.logit(rnorm(n=500,mean=0.32,sd=.50))
+ME <- inv.logit(rnorm(n=500,mean=0.15,sd=.50))
+
+PrePivotPlasmodiumData <- data.frame(VT,NH,ME)
+head(PrePivotPlasmodiumData)
+
+PlasmodiumData <- PrePivotPlasmodiumData %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(PlasmodiumData)
+
+PlasmodiumANOVA <- aov(InfectionRate ~ State, data=PlasmodiumData)
+summary(PlasmodiumANOVA)
+```
+Let's say that latitudinal difference is actually really drastic, and ME has a much lower infection rate than VT and NH. My results here yielded an even more statistically significant result than the previous analysis.
+```{r}
+VT <- inv.logit(rnorm(n=500,mean=0.40,sd=.50))
+NH <- inv.logit(rnorm(n=500,mean=0.35,sd=.50))
+ME <- inv.logit(rnorm(n=500,mean=0.10,sd=.50))
+
+PrePivotPlasmodiumData <- data.frame(VT,NH,ME)
+head(PrePivotPlasmodiumData)
+
+PlasmodiumData <- PrePivotPlasmodiumData %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(PlasmodiumData)
+
+PlasmodiumANOVA <- aov(InfectionRate ~ State, data=PlasmodiumData)
+summary(PlasmodiumANOVA)
+```
+
+### Changing the sample sizes of different groups. 
+Let's say I get more funding that I expect (yay!) and I am able to double my sample size. When I double the sample size, I still don't get a statistically significant result (which makes sense because the means are all the same again like in my intitial analysis), but it is slightly less significant than my initial analysis ran with half the sample size. 
+```{r}
+VT <- inv.logit(rnorm(n=1000,mean=0.25,sd=.50))
+NH <- inv.logit(rnorm(n=1000,mean=0.25,sd=.50))
+ME <- inv.logit(rnorm(n=1000,mean=0.25,sd=.50))
+
+PrePivotPlasmodiumData <- data.frame(VT,NH,ME)
+head(PrePivotPlasmodiumData)
+
+PlasmodiumData <- PrePivotPlasmodiumData %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(PlasmodiumData)
+
+PlasmodiumANOVA <- aov(InfectionRate ~ State, data=PlasmodiumData)
+summary(PlasmodiumANOVA)
+```
+Let's say I don't get as much funding as I want and I have to make my sample size smaller (boo!). When I run the analysis with a smaller sample size, I still don't get a statistically signficant result (makes sense), but it is more significant than my initial analysis.
+```{r}
+VT <- inv.logit(rnorm(n=250,mean=0.25,sd=.50))
+NH <- inv.logit(rnorm(n=250,mean=0.25,sd=.50))
+ME <- inv.logit(rnorm(n=250,mean=0.25,sd=.50))
+
+PrePivotPlasmodiumData <- data.frame(VT,NH,ME)
+head(PrePivotPlasmodiumData)
+
+PlasmodiumData <- PrePivotPlasmodiumData %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(PlasmodiumData)
+
+PlasmodiumANOVA <- aov(InfectionRate ~ State, data=PlasmodiumData)
+summary(PlasmodiumANOVA)
+```
+

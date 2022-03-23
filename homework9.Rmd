@@ -1,0 +1,64 @@
+---
+title: "Homework 9"
+author: "Lauren Berkley"
+date: "3/23/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+```{r}
+# Description -----------------------------------
+# This is a script for Homework 9. I am using the data from Homework 8. I am going to focus on my predictions for the infection rate of Plasmodium odocoilei in white tailed deer. Based on previous research, I hypothesize that white-tailed deer across Vermont, New Hampshire, and Maine are infected with Plasmodium odocoilei at a rate of about 25%.
+
+# 23 Mar 2022
+# LEB
+
+# Initialize ------------------------------------
+library(tidyverse)
+
+# Load Functions --------------------------------
+
+library(boot)
+library(ggplot2)
+library(broom)
+source("Functions/sim_deer_data.R")
+source("Functions/calculate_deer_stuff.R")
+source("Functions/graph_deer_results.R")
+
+# Global Variables ------------------------------
+
+VT <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+NH <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+ME <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+
+# Program Body ----------------------------------
+
+PrePivot_Deer_Data <- sim_deer_data() # create fake data frame
+head(PrePivot_Deer_Data)
+
+Deer_Data <- PrePivot_Deer_Data %>%
+  pivot_longer(cols=VT:ME,
+               names_to = "State",
+               values_to = "InfectionRate")
+head(Deer_Data)
+
+Deer_ANOVA <- calculate_deer_stuff(Deer_Data)
+print(Deer_ANOVA)
+
+# graph_deer_results(Deer_Data) # create graph
+
+sim_deer_data()
+calculate_deer_stuff()
+# graph_deer_results()
+```
+
+
