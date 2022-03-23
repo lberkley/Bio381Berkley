@@ -15,6 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Link to [Home](index.html)
 
+# Writing functions to simulate and analyze deer data.
 ```{r}
 # Description -----------------------------------
 # This is a script for Homework 9. I am using the data from Homework 8. I am going to focus on my predictions for the infection rate of Plasmodium odocoilei in white tailed deer. Based on previous research, I hypothesize that white-tailed deer across Vermont, New Hampshire, and Maine are infected with Plasmodium odocoilei at a rate of about 25%.
@@ -56,5 +57,3 @@ print(Deer_ANOVA)
 
 graph_deer_results(Deer_Data) # create graph
 ```
-
-
