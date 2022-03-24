@@ -1,8 +1,8 @@
 #####################################
 # FUNCTION: graph_deer_results
-# purpose: graph data and fitted OLS line
-# input: x and y numeric vectors of same length
-# output: create ggplot graph
+# purpose: graph data
+# input: data frame, identify the x and y variables
+# output: create boxplot
 # ----------------------------------
 library(tidyverse)
 library(ggplot2)
@@ -13,5 +13,5 @@ graph_deer_results <- function(data=Deer_Data) {
     aes(x=State,y=InfectionRate) +
     geom_boxplot()
   print(bar_plot)
-  message("regression data plotted")
+  message("data plotted")
 }

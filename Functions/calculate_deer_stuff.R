@@ -1,8 +1,8 @@
 #####################################
 # FUNCTION: calculate_deer_stuff
-# purpose: fit a OLS regression model
-# input: x and y numeric vectors of the same length
-# output: entire model summary from lm
+# purpose: run an ANOVA
+# input: data frame
+# output: ANOVA stats
 # ----------------------------------
 
 calculate_deer_stuff <- function(d_frame=Deer_Data) {

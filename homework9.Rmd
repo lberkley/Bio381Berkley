@@ -15,7 +15,7 @@ knitr::opts_chunk$set(echo = TRUE)
 
 Link to [Home](index.html)
 
-# Writing functions to simulate and analyze deer data.
+### Writing functions to simulate and analyze deer data
 ```{r}
 # Description -----------------------------------
 # This is a script for Homework 9. I am using the data from Homework 8. I am going to focus on my predictions for the infection rate of Plasmodium odocoilei in white tailed deer. Based on previous research, I hypothesize that white-tailed deer across Vermont, New Hampshire, and Maine are infected with Plasmodium odocoilei at a rate of about 25%.
@@ -43,17 +43,61 @@ ME <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
 
 # Program Body ----------------------------------
 
-PrePivot_Deer_Data <- sim_deer_data() # create fake data frame
-head(PrePivot_Deer_Data)
-
-Deer_Data <- PrePivot_Deer_Data %>%
-  pivot_longer(cols=VT:ME,
-               names_to = "State",
-               values_to = "InfectionRate")
+Deer_Data <- sim_deer_data() # create fake data frame
 head(Deer_Data)
+    
+Deer_Data <- Deer_Data %>%
+      pivot_longer(cols=VT:ME,
+                   names_to = "State",
+                   values_to = "InfectionRate")
+
+return(head(Deer_Data))
 
 Deer_ANOVA <- calculate_deer_stuff(Deer_Data)
 print(Deer_ANOVA)
 
 graph_deer_results(Deer_Data) # create graph
 ```
+
+### Changing the sample size
+```{r}
+# My function for simulating data is already set up to generate random infection rates every time you run it. So, the data for the following script will be different than that for the one above based on that alone. I can also alter the sample size, mean, and standard deviation of the randomly generated data set, which I do here. 
+
+# Initialize ------------------------------------
+library(tidyverse)
+
+# Load Functions --------------------------------
+
+library(boot)
+library(ggplot2)
+library(broom)
+source("Functions/sim_deer_data.R")
+source("Functions/calculate_deer_stuff.R")
+source("Functions/graph_deer_results.R")
+
+# Global Variables ------------------------------
+
+VT <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+NH <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+ME <- inv.logit(rnorm(n=500,mean=0.25,sd=.50))
+
+# Program Body ----------------------------------
+
+Deer_Data <- sim_deer_data(size=1000,mean=0.25,sd=0.50) # The default values for this function are size=500,mean=0.25,sd=0.50. Here I alter the sample size.
+head(Deer_Data)
+    
+Deer_Data <- Deer_Data %>%
+      pivot_longer(cols=VT:ME,
+                   names_to = "State",
+                   values_to = "InfectionRate")
+
+return(head(Deer_Data))
+
+Deer_ANOVA <- calculate_deer_stuff(Deer_Data)
+print(Deer_ANOVA)
+
+graph_deer_results(Deer_Data) # create graph
+```
+
+
+
