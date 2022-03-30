@@ -1,0 +1,166 @@
+---
+title: "Homework 10"
+author: "Lauren Berkley"
+date: "3/30/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+### Question 1
+```{r}
+# Using a for loop, write a function to calculate the number of zeroes in a numeric vector. Before entering the loop, set up a counter variable counter <- 0. Inside the loop, add 1 to counter each time you have a zero in the matrix. Finally, use return(counter) for the output.
+
+my_vec <- sample(0:100, size=100)
+print(my_vec)
+
+counter <- 0
+
+for(i in 1:length(my_vec)){
+  if(my_vec[i] == 0){
+    counter <- counter + 1
+  }
+}
+
+print(counter)
+```
+
+### Question 2
+```{r}
+# Use subsetting instead of a loop to rewrite the function as a single line of code.
+
+my_vec <- sample(0:100, size=100)
+print(my_vec)
+
+my_vec[my_vec == 0] # how do i get this to return a count?
+```
+
+### Question 3
+```{r}
+# Write a function that takes as input two integers representing the number of rows and columns in a matrix. The output is a matrix of these dimensions in which each element is the product of the row number x the column number.
+
+# Making the matrix
+
+x <- 5
+y <- 10
+
+fake.matrix <- matrix(data=NA,nrow=x,ncol=y)
+print(fake.matrix)
+
+for (i in 1:nrow(fake.matrix)) {
+  for (j in 1:ncol(fake.matrix)) {
+    fake.matrix[i,j] <- i*j
+  } # end of column j loop
+} # end of row i loop
+
+print(fake.matrix)
+
+# Creating the custom function to multiple col # by row #
+row.times.col <- function(x=2,y=3){
+  fake.matrix <- matrix(data=NA,nrow=x,ncol=y)
+  for (i in 1:nrow(fake.matrix)) {
+    for (j in 1:ncol(fake.matrix)) {
+      fake.matrix[i,j] <- i*j
+  } # end of column j loop
+} # end of row i loop
+return(fake.matrix)
+
+}
+
+# Testing with default values
+row.times.col()
+
+# Testing with inputting values
+row.times.col(3,6)
+```
+
+```{r}
+# In the next few lectures, you will learn how to do a randomization test on your data. We will complete some of the steps today to practice calling custom functions within a for loop. Use the code from the March 31st lecture (Randomization Tests) to complete the following steps:
+
+# Simulate a dataset with 3 groups of data, each group drawn from a distribution with a different mean. The final data frame should have 1 column for group and 1 column for the response variable.
+
+library(ggplot2)
+library(tidyverse)
+
+group1 <- rnorm(100, mean = 50, sd = 5)
+group2 <- rnorm(100, mean = 60, sd = 5)
+group3 <- rnorm(100, mean = 40, sd = 5)
+
+fake.data <- data.frame(group1, group2, group3)
+print(fake.data)
+
+fake.data <- fake.data %>%
+  pivot_longer(cols=group1:group3,
+               names_to = "Group",
+               values_to = "ResponseVariable")
+head(fake.data)
+
+# Write a custom function that 1) reshuffles the response variable, and 2) calculates the mean of each group in the reshuffled data. Store the means in a vector of length 3.
+
+##################################################
+# function: shuffleData
+# randomize data for regression analysis and get the mean of newly shuffled values
+# input: 2-column data frame (group, response)
+# output: 2-column data frame (group, response)
+#------------------------------------------------- 
+shuffleData <- function(z=dataframe) {
+                z$ResponseVariable <- sample(z$ResponseVariable)
+                
+z1 <- z[z$Group == "group1",]
+z2 <- z[z$Group == "group2",]
+z3 <- z[z$Group == "group3",]
+
+mean1 <- mean(z1$ResponseVariable)
+mean2 <- mean(z2$ResponseVariable)
+mean3 <- mean(z3$ResponseVariable)
+
+mean_vec <- c(mean1,mean2,mean3)
+
+return(mean_vec)
+}
+
+shuffleData(fake.data)
+
+# Use a for loop to repeat the function in b 100 times. Store the results in a data frame that has 1 column indicating the replicate number and 1 column for each new group mean, for a total of 4 columns.
+
+# Make an empty matrix to start
+
+a.matrix <- matrix(data = NA, nrow = 100, ncol = 3)
+print(a.matrix)
+
+# Write a for loop to get 100 rows of means
+for(i in 1:100){
+  a.matrix[i,] <- shuffleData(fake.data)
+}
+
+print(a.matrix)
+
+# Making that into a data frame
+rep_number <- seq(1:100)
+
+b.matrix <- cbind(rep_number, a.matrix)
+
+# Renaming the columns so they make sense
+colnames(b.matrix) <- c("Replicate_Number","Group_1_Mean","Group_2_Mean","Group_3_Mean")
+
+print(b.matrix)
+
+# Use qplot() to create a histogram of the means for each reshuffled group. Or, if you want a challenge, use ggplot() to overlay all 3 histograms in the same figure. How do the distributions of reshuffled means compare to the original means?
+
+# Group 1 Means
+qplot(b.matrix[,2])
+
+# Group 2 Means
+qplot(b.matrix[,3])
+
+# Group 3 Means
+qplot(b.matrix[,4])
+```
+
+
+
+

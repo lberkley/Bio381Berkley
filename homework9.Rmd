@@ -99,5 +99,63 @@ print(Deer_ANOVA)
 graph_deer_results(Deer_Data) # create graph
 ```
 
+### My functions
+I chose to save my functions in separate R scripts, then load them into my homework script. I will copy and paste the functions below so you can see what I did.
+```{r}
+#####################################
+# FUNCTION: sim_deer_data
+# purpose: create fake cervid data then make it longer
+# input: sample size, mean, sd
+# output: data frame
+# ----------------------------------
+
+library(boot)
+
+# create initial data
+sim_deer_data <- function(size=500,mean=0.25,sd=0.50) {
+  
+    d_frame <- data.frame(VT=inv.logit(rnorm(n=size,mean=mean,sd=sd)),
+                          NH=inv.logit(rnorm(n=size,mean=mean,sd=sd)),
+                          ME=inv.logit(rnorm(n=size,mean=mean,sd=sd)))
+    
+  return(d_frame)
+}
+
+
+#####################################
+# FUNCTION: calculate_deer_stuff
+# purpose: run an ANOVA
+# input: data frame
+# output: ANOVA stats
+# ----------------------------------
+
+calculate_deer_stuff <- function(d_frame=Deer_Data) {
+  names(d_frame) <- c("x_var","y_var")
+
+  DeerANOVA <- aov(y_var ~ x_var, data=d_frame)
+  
+  return(summary(DeerANOVA))
+}
+
+
+#####################################
+# FUNCTION: graph_deer_results
+# purpose: graph data
+# input: data frame, identify the x and y variables
+# output: create boxplot
+# ----------------------------------
+library(tidyverse)
+library(ggplot2)
+
+graph_deer_results <- function(data=Deer_Data) {
+  
+  bar_plot <- ggplot(data=data) +
+    aes(x=State,y=InfectionRate) +
+    geom_boxplot()
+  print(bar_plot)
+  message("data plotted")
+}
+
+```
 
 
