@@ -19,7 +19,7 @@ Link to [Home](index.html)
 ```{r}
 # Using a for loop, write a function to calculate the number of zeroes in a numeric vector. Before entering the loop, set up a counter variable counter <- 0. Inside the loop, add 1 to counter each time you have a zero in the matrix. Finally, use return(counter) for the output.
 
-my_vec <- sample(0:100, size=100)
+my_vec <- sample(0:10, size=10)
 print(my_vec)
 
 counter <- 0
@@ -37,10 +37,11 @@ print(counter)
 ```{r}
 # Use subsetting instead of a loop to rewrite the function as a single line of code.
 
-my_vec <- sample(0:100, size=100)
+my_vec <- sample(0:10, size=10)
 print(my_vec)
 
-my_vec[my_vec == 0] # how do i get this to return a count?
+count <- sum(my_vec == 0)
+print(count)
 ```
 
 ### Question 3
