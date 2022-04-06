@@ -1,0 +1,56 @@
+---
+title: "Homework 11"
+author: "Lauren Berkley"
+date: "4/6/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.rmd)
+
+### Modifying the lecture script with my own data
+```{r}
+# Body of script for batch processing of regression models
+#--------------------------------------------
+# Global variables
+file_folder <- "CleanSalamanderData/"
+file_out <- "CombinedSalamanderData.csv"
+#--------------------------------------------
+
+# Load salamander data
+dir.exists(file_folder)
+file_names <- list.files(path=file_folder)
+
+# Making an empty list
+data <- list()
+
+# Combine files into a single `.csv`
+for (i in seq_along(file_names)) {
+  data[[i]] <- read.table(file=paste(file_folder,file_names[i],sep=""),
+                     sep=",",
+                     header=TRUE,
+                     stringsAsFactors=FALSE)
+  
+}
+
+names(data) <- c("real","fake")
+
+list2env(x = data, envir = .GlobalEnv)
+
+combined.data <- rbind(fake,real)
+
+write.table(x=combined.data,
+            file=file_out,
+            row.names=FALSE,
+            col.names=FALSE,
+            sep=",")
+```
+
+
