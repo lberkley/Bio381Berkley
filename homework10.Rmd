@@ -98,11 +98,11 @@ group3 <- rnorm(100, mean = 40, sd = 5)
 fake.data <- data.frame(group1, group2, group3)
 print(fake.data)
 
-fake.data <- fake.data %>%
+new.fake.data <- fake.data %>%
   pivot_longer(cols=group1:group3,
                names_to = "Group",
                values_to = "ResponseVariable")
-head(fake.data)
+head(new.fake.data)
 
 # Write a custom function that 1) reshuffles the response variable, and 2) calculates the mean of each group in the reshuffled data. Store the means in a vector of length 3.
 
@@ -128,7 +128,7 @@ mean_vec <- c(mean1,mean2,mean3)
 return(mean_vec)
 }
 
-shuffleData(fake.data)
+shuffleData(new.fake.data)
 
 # Use a for loop to repeat the function in b 100 times. Store the results in a data frame that has 1 column indicating the replicate number and 1 column for each new group mean, for a total of 4 columns.
 
@@ -139,7 +139,7 @@ print(a.matrix)
 
 # Write a for loop to get 100 rows of means
 for(i in 1:100){
-  a.matrix[i,] <- shuffleData(fake.data)
+  a.matrix[i,] <- shuffleData(new.fake.data)
 }
 
 print(a.matrix)
@@ -166,7 +166,7 @@ qplot(b.matrix[,3])
 qplot(b.matrix[,4])
 ```
 
-### Making a histogram of p-values
+### Making a layered histogram
 ```{r}
 
 head(b.matrix)
@@ -176,15 +176,20 @@ mean.df <- as.data.frame(c.matrix)
 head(mean.df)
 
 # Use ggplot to put three histos on top of eachother 
+
 ggplot(data=mean.df)+
   geom_histogram(aes(x=Group_1_Mean),fill="blueviolet")+
   geom_histogram(aes(x=Group_2_Mean),fill="chocolate2")+
   geom_histogram(aes(x=Group_3_Mean),fill="cyan4")+
-  geom_vline(xintercept = 50)+
-  geom_vline(xintercept = 60)+
-  geom_vline(xintercept = 40)
+  geom_vline(xintercept = mean(fake.data$group1), color="blueviolet")+
+  geom_vline(xintercept = mean(fake.data$group2), color="chocolate2")+
+  geom_vline(xintercept = mean(fake.data$group3), color="cyan4")+
+  labs(y="Mean 'Infection Rates'",x="Layered Histograms of Three Sample Groups")+
+  scale_color_manual(name="Legend", 
+                   breaks=c("Group 1", "Group 2", "Group 3"),
+                   values=c("Group 1"="blueviolet", "Group 2"="chocolate2", "Group 3"="cyan4"))
 
-# will fix this tomorrow
+# I don't know why I can't make a legend!
 ```
 
 
