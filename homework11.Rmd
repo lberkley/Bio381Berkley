@@ -13,7 +13,7 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-Link to [Home](index.rmd)
+Link to [Home](index.html)
 
 ### Modifying the lecture script with my own data
 ```{r}
