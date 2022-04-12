@@ -184,10 +184,9 @@ ggplot(data=mean.df)+
   geom_vline(xintercept = mean(fake.data$group1), color="blueviolet")+
   geom_vline(xintercept = mean(fake.data$group2), color="chocolate2")+
   geom_vline(xintercept = mean(fake.data$group3), color="cyan4")+
-  labs(y="Mean 'Infection Rates'",x="Layered Histograms of Three Sample Groups")+
-  scale_color_manual(name="Legend", 
-                   breaks=c("Group 1", "Group 2", "Group 3"),
-                   values=c("Group 1"="blueviolet", "Group 2"="chocolate2", "Group 3"="cyan4"))
+  labs(title = "Layered Histograms",
+       y="Mean 'Infection Rates'",
+       x="Three Sample Groups")
 
 # I don't know why I can't make a legend!
 ```
