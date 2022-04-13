@@ -1,0 +1,97 @@
+---
+title: "Homework 12"
+author: "Lauren Berkley"
+date: "4/13/2022"
+output:
+    html_document:
+      theme: journal
+      toc: true
+      toc_float: true
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+Link to [Home](index.html)
+
+### Trying different things with ggplot2
+```{r}
+# Loading ggplot2
+
+library(ggplot2)
+library(ggrepel)
+
+# Reading in my salamander data
+
+sal.data <- read.table("CleanSalamanderData/mysalamanderdata.csv",
+                       header = TRUE,
+                       sep=",")
+head(sal.data)
+
+# Making a box plot of SVL for different salamander morphs with ggplot
+
+sal.plot <- ggplot(data = sal.data)+
+  geom_boxplot(aes(x=Morph, y=SVL),fill="blueviolet", color="black")+
+  labs(title = "Snout-Vent Length (SVL) of Salamanders by Morph",
+       y="SVL (mm)",
+       x="Morph")
+
+sal.plot
+
+# Trying out different colors
+
+sal.plot.2 <- ggplot(data = sal.data)+
+  geom_boxplot(aes(x=Morph, y=SVL),fill="cyan4", color="chocolate2")+
+  labs(title = "Snout-Vent Length (SVL) of Salamanders by Morph",
+       y="SVL (mm)",
+       x="Morph")
+
+sal.plot.2
+
+# Increasing the font size
+
+sal.plot + theme(text = element_text(size = 15))
+
+# Adding text label
+
+sal.plot + geom_label(aes(x=1.5,y=30,label="this is random text")) 
+
+# Adding an arrow pointing to something
+
+sal.plot + geom_segment(aes(x = 1, y = 30, xend = 1.6, yend = 39), arrow = arrow(length = unit(0.5, "cm")))
+
+# Flipping the axes
+
+sal.plot + coord_flip()
+
+# Trying the dark theme
+
+sal.plot + theme_dark()
+
+# Trying the minimal theme
+
+sal.plot + theme_minimal()
+
+# Trying the void theme
+
+sal.plot + theme_void()
+
+# Trying the classic theme - this one is my favorite!
+
+best.sal.plot <- sal.plot + theme_classic()
+
+best.sal.plot
+```
+
+### Exporting my plot to pdf and jpg files
+```{r}
+# Using ggsave() to save as a pdf
+
+ggsave(filename = "salPlot.pdf", plot = best.sal.plot)
+
+# Using ggsave() to save as a jpg
+
+ggsave(filename = "salPlot.jpg", plot = best.sal.plot)
+```
+
