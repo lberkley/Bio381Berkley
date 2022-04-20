@@ -82,6 +82,12 @@ sal.plot + theme_void()
 best.sal.plot <- sal.plot + theme_classic()
 
 best.sal.plot
+
+# Overlay some dots
+best.sal.plot <- best.sal.plot +  geom_point(aes(x=Morph, y=SVL),position=position_jitter(width=0.1, height=0.7),
+             color="black", size=2)
+
+best.sal.plot
 ```
 
 ### Exporting my plot to pdf and jpg files
