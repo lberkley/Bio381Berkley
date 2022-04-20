@@ -1,0 +1,38 @@
+---
+title: "Working with my own data"
+author: "Lauren Berkley"
+date: "4/20/2022"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r}
+# Loading ggplot2
+
+library(ggplot2)
+library(ggrepel)
+
+# Reading in my salamander data
+
+d.data <- read.table("CleanDeerData.csv",
+                       header = TRUE,
+                       sep=",")
+head(d.data)
+print(d.data)
+
+# Making a bar graph of sex distribution by location
+
+my_cols <- c("#001524","#15616D","#FFECD1","#FF7D00","#78290F")
+
+deer.chart <- ggplot(data = d.data)+
+  geom_tile(aes(x=Species, y=Sex),fill="#001524", color="#001524")+
+  labs(title = "Sex Distribution of Cervid Samples by Species",
+       y="Sex",
+       x="Species")
+
+deer.chart
+```
+
