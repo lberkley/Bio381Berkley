@@ -188,7 +188,7 @@ ggplot(data=mean.df)+
        y="Mean 'Infection Rates'",
        x="Three Sample Groups")
 
-# I don't know why I can't make a legend!
+# Makeshift legend: blueviolet = Group 1, chocolate2 = Group 2, cyan4 = Group 3
 ```
 
 

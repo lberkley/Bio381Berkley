@@ -21,7 +21,6 @@ d.data <- read.table("CleanDeerData.csv",
                        header = TRUE,
                        sep=",")
 head(d.data)
-print(d.data)
 
 # Making a bar graph of sex distribution by location
 
